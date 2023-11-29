@@ -1,14 +1,14 @@
 import { Knex } from 'knex'
 
 export async function up(knex: Knex): Promise<void> {
-  knex.schema.createTable('users', (table) => {
+  await knex.schema.createTable('users', (table) => {
     table.uuid('id').primary()
     table.string('name').notNullable()
     table.string('email').notNullable()
     table.timestamp('created_at').defaultTo(knex.fn.now()).notNullable()
   })
 
-  knex.schema.createTable('meals', (table) => {
+  await knex.schema.createTable('meals', (table) => {
     table.uuid('id').primary()
     table.foreign('user_id').references('id').inTable('users')
     table.string('title').notNullable()
